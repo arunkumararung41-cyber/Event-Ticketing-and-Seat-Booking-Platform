@@ -1,0 +1,106 @@
+{
+  "info": {
+    "name": "EventBook API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080/api" },
+    { "key": "token", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Register",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Priya Sharma\",\n  \"email\": \"priya@example.com\",\n  \"password\": \"secret123\",\n  \"role\": \"ATTENDEE\"\n}" },
+        "url": "{{baseUrl}}/auth/register"
+      }
+    },
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": { "mode": "raw", "raw": "{\n  \"email\": \"priya@example.com\",\n  \"password\": \"secret123\"\n}" },
+        "url": "{{baseUrl}}/auth/login"
+      }
+    },
+    {
+      "name": "Create Venue (admin/organizer)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Indoor Stadium\",\n  \"address\": \"MG Road\",\n  \"city\": \"Bengaluru\",\n  \"totalCapacity\": 500\n}" },
+        "url": "{{baseUrl}}/admin/venues"
+      }
+    },
+    {
+      "name": "Create Event",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Coldplay Live\",\n  \"description\": \"World tour stop\",\n  \"category\": \"Music\",\n  \"venueId\": 1,\n  \"eventDate\": \"2026-12-01T19:00:00Z\",\n  \"basePrice\": 1500,\n  \"rows\": 8,\n  \"seatsPerRow\": 10\n}" },
+        "url": "{{baseUrl}}/events"
+      }
+    },
+    {
+      "name": "Search Events",
+      "request": { "method": "GET", "url": "{{baseUrl}}/events?category=Music&page=0&size=9" }
+    },
+    {
+      "name": "Get Seat Map",
+      "request": { "method": "GET", "url": "{{baseUrl}}/events/1/seats" }
+    },
+    {
+      "name": "Hold Seats",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" },
+          { "key": "Authorization", "value": "Bearer {{token}}" }
+        ],
+        "body": { "mode": "raw", "raw": "{\n  \"eventId\": 1,\n  \"seatIds\": [1, 2]\n}" },
+        "url": "{{baseUrl}}/bookings/hold"
+      }
+    },
+    {
+      "name": "Confirm Booking",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/bookings/1/confirm"
+      }
+    },
+    {
+      "name": "My Bookings",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/bookings/me"
+      }
+    },
+    {
+      "name": "Get Ticket (QR)",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/tickets/1"
+      }
+    },
+    {
+      "name": "Admin Sales Summary",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+        "url": "{{baseUrl}}/admin/events/1/sales-summary"
+      }
+    }
+  ]
+}

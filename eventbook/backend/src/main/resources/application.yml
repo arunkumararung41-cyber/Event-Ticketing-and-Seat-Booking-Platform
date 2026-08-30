@@ -1,0 +1,52 @@
+spring:
+  application:
+    name: eventbook-backend
+
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_NAME:eventbook}?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+    username: ${DB_USER:root}
+    password: ${DB_PASSWORD:Arun@2356}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          time_zone: UTC
+    open-in-view: false
+
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+
+server:
+  port: ${SERVER_PORT:8080}
+
+jwt:
+  secret: ${JWT_SECRET:c2VjcmV0LWtleS1mb3ItZXZlbnRib29rLWFwcC1jaGFuZ2UtaW4tcHJvZHVjdGlvbi1wbGVhc2U=}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+booking:
+  hold-duration-minutes: ${HOLD_DURATION_MINUTES:5}
+
+logging:
+  level:
+    root: INFO
+    com.eventbook: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html

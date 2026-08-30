@@ -1,0 +1,68 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: eventbook-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: eventbook
+      MYSQL_USER: eventbook
+      MYSQL_PASSWORD: eventbook
+      MYSQL_ROOT_PASSWORD: Arun@2356
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "Arun@2356"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: eventbook-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: eventbook-backend
+    restart: unless-stopped
+    depends_on:
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: eventbook
+      DB_USER: eventbook
+      DB_PASSWORD: eventbook
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      JWT_SECRET: c2VjcmV0LWtlYS1mb3ItZXZlbnRib29rLWFwcC1jaGFuZ2UtaW4tcHJvZHVjdGlvbi1wbGVhc2U=
+      JWT_EXPIRATION_MS: 86400000
+      HOLD_DURATION_MINUTES: 5
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./frontend
+    container_name: eventbook-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80"
+
+volumes:
+  mysql_data:

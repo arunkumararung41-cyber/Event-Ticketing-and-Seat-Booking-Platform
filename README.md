@@ -1,130 +1,282 @@
 # 🎟️ Event Ticketing & Seat Booking Platform
 
-A full-stack web application for discovering events, managing venues and seats, and booking event tickets online. The platform provides secure authentication, role-based authorization, event management, venue management, seat availability tracking, and booking functionality.
+A full-stack **Event Ticketing and Seat Booking Platform** that allows users to discover events, view available seats, and book tickets online.
 
-## 🚀 Features
+The application provides secure authentication, role-based authorization, event management, venue and seat management, booking management, and Redis-based caching for improved performance.
 
-* User Registration and Login
-* JWT-based Authentication
-* Role-Based Authorization
-* Event Management
-* Venue Management
-* Seat Management
-* Real-Time Seat Availability
-* Event Ticket Booking
-* Booking Management
-* RESTful APIs
-* Redis Caching
-* MySQL Database
-* Frontend and Backend Integration
+---
+
+## 📌 Project Overview
+
+The Event Ticketing & Seat Booking Platform is designed using a modern full-stack architecture with **React.js for the frontend** and **Spring Boot for the backend**.
+
+Users can register and log in securely, browse available events, select seats, and make bookings. Administrators can manage events, venues, seats, and other platform operations through protected APIs.
+
+---
+
+## 🚀 Key Features
+
+### 👤 User Features
+
+- User Registration
+- User Login
+- JWT-based Authentication
+- Browse Events
+- View Event Details
+- View Available Seats
+- Select Seats
+- Book Tickets
+- View Booking Details
+- Manage User Bookings
+
+### 🛡️ Admin Features
+
+- Admin Authentication
+- Role-Based Authorization
+- Create and Manage Events
+- Create and Manage Venues
+- Manage Seats
+- Manage Event Information
+- View Booking Information
+
+### ⚡ Performance
+
+- Redis caching for frequently accessed data
+- Cached event and seat availability information
+- Reduced unnecessary database queries
+
+---
 
 ## 🛠️ Technologies Used
 
 ### Backend
 
-* Java
-* Spring Boot
-* Spring Security
-* JWT
-* Spring Data JPA
-* Hibernate
-* REST APIs
-* Maven
+- Java
+- Spring Boot
+- Spring Security
+- JWT
+- Spring Data JPA
+- Hibernate
+- REST APIs
+- Maven
 
 ### Frontend
 
-* React.js
-* HTML5
-* CSS3
-* JavaScript
+- React.js
+- JavaScript
+- HTML5
+- CSS3
 
-### Database & Caching
+### Database
 
-* MySQL
-* Redis
+- MySQL
 
-### Tools
+### Caching
 
-* Git
-* GitHub
-* Postman
-* Eclipse / Spring Tool Suite
-* VS Code
+- Redis
+
+### Development Tools
+
+- Eclipse / Spring Tool Suite
+- Visual Studio Code
+- Git
+- GitHub
+- Postman
+- MySQL Workbench
+
+---
 
 ## 🏗️ Architecture
 
-The application follows a layered architecture:
+The application follows a layered backend architecture:
 
-**Controller → Service → Repository → Database**
+                    ┌───────────────┐
+                    │  React.js UI  │
+                    └───────┬───────┘
+                            │
+                       REST APIs
+                            │
+                    ┌───────▼───────┐
+                    │ Spring Boot   │
+                    │   Backend     │
+                    └───────┬───────┘
+                            │
+                 ┌──────────┴──────────┐
+                 │                     │
+          ┌──────▼──────┐       ┌──────▼──────┐
+          │    Redis    │       │    MySQL    │
+          │    Cache    │       │   Database  │
+          └─────────────┘       └─────────────┘
 
-The frontend communicates with the backend through REST APIs.
 
-## 🔐 Authentication & Authorization
+Authentication & Authorization
 
-* Users can register and log in securely.
-* JWT tokens are used for authentication.
-* Role-based authorization controls access to protected operations.
-* Admin users can manage events, venues, and seats.
-* Users can browse events and make bookings.
+The application uses Spring Security with JWT for secure authentication and authorization.
 
-## 🎫 Booking Flow
+Authentication Flow
+User
+ ↓
+Login
+ ↓
+Spring Security
+ ↓
+JWT Token Generated
+ ↓
+Frontend Stores Token
+ ↓
+Token Sent With Protected Requests
+ ↓
+Backend Validates Token
+ ↓
+Request Allowed / Rejected
 
-1. User registers or logs in.
-2. User browses available events.
-3. User selects an event and venue.
-4. Available seats are displayed.
-5. User selects seats.
-6. Booking is created through the REST API.
-7. Selected seats become unavailable for subsequent bookings.
-8. User can view their booking details.
+Role-Based Access
 
-## ⚡ Redis Caching
+The application supports different user roles.
 
-Redis is used to cache frequently accessed data such as event information and seat availability to reduce unnecessary database queries and improve application performance.
+For example:
+USER
+ ↓
+Browse Events
+ ↓
+View Seats
+ ↓
+Book Tickets
+ ↓
+View Bookings
 
-## 🗄️ Database
+ADMIN
+ ↓
+Manage Events
+ ↓
+Manage Venues
+ ↓
+Manage Seats
+ ↓
+Manage Bookings
 
-MySQL is used for persistent data storage.
+🎫 Booking Flow
 
-Main entities include:
+The typical booking process is:
+1. User Registration
+        ↓
+2. User Login
+        ↓
+3. Browse Events
+        ↓
+4. Select Event
+        ↓
+5. Select Venue
+        ↓
+6. View Available Seats
+        ↓
+7. Select Seats
+        ↓
+8. Confirm Booking
+        ↓
+9. Booking Stored in Database
+        ↓
+10. Selected Seats Become Unavailable
 
-* User
-* Event
-* Venue
-* Seat
-* Booking
+⚡ Redis Caching
 
-The entities are connected using appropriate JPA relationships.
+Redis is used to improve application performance.
 
-## 📌 API Categories
+Frequently accessed information such as:
 
-* Authentication APIs
-* Event APIs
-* Venue APIs
-* Seat APIs
-* Booking APIs
-* User APIs
+Event information
+Seat availability
+Frequently requested data
 
-## 🎯 Project Objectives
+can be cached in Redis.
 
-* Build a real-world full-stack booking application.
-* Implement secure authentication and authorization.
-* Practice Spring Boot REST API development.
-* Work with JPA entity relationships.
-* Implement seat availability and booking logic.
-* Integrate React.js with Spring Boot.
-* Improve performance using Redis caching.
+This helps reduce repeated database queries and improves response time.
 
-## 🔮 Future Enhancements
+⚙️ Prerequisites
 
-* Online Payment Gateway
-* Email Booking Confirmation
-* QR Code Ticket Generation
-* Event Search and Filtering
-* Booking Cancellation and Refunds
-* Docker Deployment
-* Cloud Deployment
+Before running the project, make sure the following are installed:
 
-## 👨‍💻 Project Status
+Java 17 or later,
+Maven,
+Node.js,
+npm,
+MySQL,
+Redis,
+Git
 
-**Completed / Under Development** — Core authentication, event, venue, seat, and booking functionality implemented.
+▶️ How to Run the Project
+
+🔹 Backend — Spring Boot
+
+Open the backend project in STS/Eclipse and run the main Spring Boot application:
+
+Run As → Spring Boot App
+
+Or using Maven:
+
+mvn spring-boot:run
+
+Backend will run on:
+
+http://localhost:8080
+
+🔹 Frontend — React.js
+
+Open the frontend folder in VS Code:
+
+npm install
+npm start
+
+If you're using Vite:
+
+npm install
+npm run dev
+
+Frontend will normally run on:
+
+http://localhost:3000
+
+or, with Vite:
+
+http://localhost:5173
+
+🔹 Required
+
+Make sure MySQL and Redis are running before starting the backend.
+
+## Home Page
+<img width="1859" height="878" alt="Home page" src="https://github.com/user-attachments/assets/f68332b0-ee40-4c27-879d-7bcb6ee70fdd" />
+
+
+
+## Login Page
+
+<img width="1853" height="823" alt="Login page" src="https://github.com/user-attachments/assets/248b8bcb-f9fc-4043-85fb-b1ef2d754acb" />
+
+
+## Event Page
+
+<img width="1873" height="908" alt="Event Booking" src="https://github.com/user-attachments/assets/67332158-bca0-482d-8efa-388a3790c29d" />
+
+
+## Seat Selection
+
+<img width="1844" height="893" alt="Seat Booking" src="https://github.com/user-attachments/assets/44c02c65-19fd-488b-8958-f3db56cb405c" />
+
+
+## Booking Page
+<img width="1857" height="802" alt="Booking Page" src="https://github.com/user-attachments/assets/3e7433ee-051e-4b35-aad3-d3cd9be3bfab" />
+
+
+
+## Admin Dashboard
+<img width="1850" height="904" alt="Admin page" src="https://github.com/user-attachments/assets/7654e2a0-d068-4fad-b47d-4e01fa7fe78d" />
+
+
+
+👨‍💻 Author
+
+Arun Kumar
+
+GitHub:
+https://github.com/arunkumararung41-cyber

@@ -1,7 +1,6 @@
 package com.eventbook.controller;
 
 import com.eventbook.dto.SalesSummaryResponse;
-import com.eventbook.dto.VenueRequest;
 import com.eventbook.entity.Venue;
 import com.eventbook.repository.VenueRepository;
 import com.eventbook.service.AdminService;

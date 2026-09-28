@@ -8,7 +8,7 @@ export default function Navbar() {
 
   return (
     <div className="navbar">
-      <Link to="/" className="brand"><span className="dot"></span>EventBook</Link>
+      <Link to="/" className="brand"><span className=""></span>EventBook</Link>
       <div className="nav-links">
         <Link to="/">Events</Link>
         {user && <Link to="/my-bookings">My Bookings</Link>}
